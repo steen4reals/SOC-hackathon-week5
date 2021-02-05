@@ -1,39 +1,85 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using System;
+using System.Threading.Tasks;
 
-namespace BackEnd.Controllers
+
+[ApiController]
+[Route("[controller]")]
+public class JournalController : ControllerBase
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class JournalController : ControllerBase
+    private readonly IRepository<Book> _bookRepository;
+
+    public JournalController(IRepository<Book> bookRepository)
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
+        _bookRepository = bookRepository;
+    }
 
-        private readonly ILogger<JournalController> _logger;
+    [HttpGet]
+    public async Task<IEnumerable<Book>> GetAll()
+    {
+        return await _bookRepository.GetAll();
+    }
 
-        public JournalController(ILogger<JournalController> logger)
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> Get(long id)
+    {
+        try
         {
-            _logger = logger;
+            var book = await _bookRepository.Get(id);
+            return Ok(book);
         }
-
-        [HttpGet]
-        public IEnumerable<Journal> Get()
+        catch (Exception)
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new Journal
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+            return NotFound($"No such book at {id}");
         }
     }
-}
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(long id)
+    {
+        try
+        {
+            await _bookRepository.Get(id);
+        }
+        catch (Exception)
+        {
+            return NotFound($"Could not delete as {id} does not exist");
+        }
+        _bookRepository.Delete(id);
+
+        return Ok();
+
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(long id, [FromBody] Book book)
+    {
+        try
+        {
+            var book1 = await _bookRepository.Update(new Book { Id = id, Title = book.Title, Author = book.Author });
+            return Ok(book1);
+        }
+        catch (Exception)
+        {
+            // experiment
+            return BadRequest("Update failed");
+        }
+
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Insert([FromBody] Book book)
+    {
+        try
+        {
+            var book1 = await _bookRepository.Insert(book);
+            return Ok(book1);
+        }
+        catch (Exception)
+        {
+            return BadRequest("Invalid entry");
+        }
+    }
+
