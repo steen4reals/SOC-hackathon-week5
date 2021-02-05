@@ -8,8 +8,9 @@ CREATE TABLE Journal (
 -- DATE OR TIMESTAMP HOW TO PUT IN>?
 
 -- TO DO BELOW
+-- could add keywords later if we want...
 
 INSERT INTO
-    Books (Title, Author)
+    Journal (JournalEntry)
 VALUES
     ('Like Authoring a Bike', 'Ben P. Lee');
