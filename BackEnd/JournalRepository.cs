@@ -34,7 +34,9 @@ namespace BackEnd
         public async Task<Journal> Update(Journal journal)
         {
             using var connection = CreateConnection();
-            return await connection.QuerySingleAsync<Journal>("UPDATE Journal SET JournalEntry =@JournalEntry WHERE Id = @Id RETURNING *", journal);
+
+            //UPDATE journal SET journalentry = 'Alright day' WHERE Id = 2;
+            return await connection.QuerySingleAsync<Journal>("UPDATE Journal SET journalentry = @JournalEntry WHERE Id = @Id RETURNING *", journal);
         }
 
         public async Task<Journal> Insert(Journal journal)

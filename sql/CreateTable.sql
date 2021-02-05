@@ -30,3 +30,9 @@ INSERT INTO
     Journal (JournalEntry,DateOfEntry)
 VALUES
     ('Hackathon today....',(SELECT NOW()));
+
+
+    INSERT INTO
+    Journal (JournalEntry)
+VALUES
+    ('Hackathon today....');
