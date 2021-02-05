@@ -13,6 +13,24 @@
 
 
 
+// async function renderToDo(toDoItem) {
+// }
+
+
+// // Adding a new ToDo List item
+// // async function handleAddToDo(event) {
+// //     // stops page reloading by default
+// //     event.preventDefault();
+// //     // get title and priority from form
+// //     const partialTodo = {
+// //         title: event.target[0].value,
+// //         priority: event.target[1].value,
+// //     };
+// //     // sent to database and recieve full item including id
+// //     const completeTodo = await sendToDo("/todoitems", "POST", partialTodo);
+// //     event.target.reset();
+// //     renderToDo(completeTodo);
+// // }
 
 
 
@@ -38,11 +56,11 @@ const BACKEND_URL = "http://localhost:5000";
 
 // variables
 let submitButton = document.getElementById("submitButton");
-sortbutton.addEventListener("click", submitEntry);
-
+submitButton.addEventListener("click", submitEntry);
 //text box
 let entryArea = document.getElementById("entryArea");
 
+// Button clicked function
 async function submitEntry(event) {
 
     event.preventDefault();
@@ -53,50 +71,18 @@ async function submitEntry(event) {
 
 }
 
-async function postJournalEntry(path, method, body = ""){
+async function postJournalEntry(path, method, body) {
     const res = await fetch(`${BACKEND_URL}${path}`, {
-                method,
-                headers: {"content-type": "application/json"},
-                body: JSON.stringify(body),
-            });     
-            // await response (res) from the INSERT
-            const data = await res.json();
-            // return response
-            return data;
-}
-
-// // sending it off to the database
-// async function sendToDo(path, method, body = "") {
-//     const res = await fetch(`${BACKEND_URL}${path}`, {
-//         method,
-//         headers: {
-//             "content-type": "application/json",
-//         },
-//         body: JSON.stringify(body),
-//     });
-
-//     // await response (res) from the INSERT
-//     const data = await res.json();
-//     // return response
-//     return data;
-// }
-
-async function renderToDo(toDoItem) {
+        method,
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(body),
+    });
+    // await response (res) from the INSERT
+    const data = await res.json();
+    // return response
+    return data;
 }
 
 
-// Adding a new ToDo List item
-// async function handleAddToDo(event) {
-//     // stops page reloading by default
-//     event.preventDefault();
-//     // get title and priority from form
-//     const partialTodo = {
-//         title: event.target[0].value,
-//         priority: event.target[1].value,
-//     };
-//     // sent to database and recieve full item including id
-//     const completeTodo = await sendToDo("/todoitems", "POST", partialTodo);
-//     event.target.reset();
-//     renderToDo(completeTodo);
-// }
+
 
