@@ -4,25 +4,23 @@ using System;
 using System.Threading.Tasks;
 
 
-
-
 namespace BackEnd
 {
     [ApiController]
     [Route("[controller]")]
     public class JournalController : ControllerBase
     {
-        private readonly IRepository<Book> _bookRepository;
+        private readonly IRepository<Journal> _journalRepository;
 
-        public JournalController(IRepository<Book> bookRepository)
+        public JournalController(IRepository<Journal> journalRepository)
         {
-            _bookRepository = bookRepository;
+            _journalRepository = journalRepository;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Book>> GetAll()
+        public async Task<IEnumerable<Journal>> GetAll()
         {
-            return await _bookRepository.GetAll();
+            return await _journalRepository.GetAll();
         }
 
 
@@ -31,12 +29,12 @@ namespace BackEnd
         {
             try
             {
-                var book = await _bookRepository.Get(id);
+                var book = await _journalRepository.Get(id);
                 return Ok(book);
             }
             catch (Exception)
             {
-                return NotFound($"No such book at {id}");
+                return NotFound($"No such journal at {id}");
             }
         }
 
@@ -45,25 +43,25 @@ namespace BackEnd
         {
             try
             {
-                await _bookRepository.Get(id);
+                await _journalRepository.Get(id);
             }
             catch (Exception)
             {
                 return NotFound($"Could not delete as {id} does not exist");
             }
-            _bookRepository.Delete(id);
+            _journalRepository.Delete(id);
 
             return Ok();
 
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(long id, [FromBody] Book book)
+        public async Task<IActionResult> Update(long id, [FromBody] Journal journal)
         {
             try
             {
-                var book1 = await _bookRepository.Update(new Book { Id = id, Title = book.Title, Author = book.Author });
-                return Ok(book1);
+                var journal1 = await _journalRepository.Update(new Journal { Id = id, Entry = journal.Entry});
+                return Ok(journal1);
             }
             catch (Exception)
             {
@@ -74,12 +72,12 @@ namespace BackEnd
         }
 
         [HttpPost]
-        public async Task<IActionResult> Insert([FromBody] Book book)
+        public async Task<IActionResult> Insert([FromBody] Journal journal)
         {
             try
             {
-                var book1 = await _bookRepository.Insert(book);
-                return Ok(book1);
+                var journal1 = await _journalRepository.Insert(journal);
+                return Ok(journal1);
             }
             catch (Exception)
             {
