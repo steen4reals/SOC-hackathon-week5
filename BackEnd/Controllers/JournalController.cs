@@ -29,8 +29,8 @@ namespace BackEnd
         {
             try
             {
-                var book = await _journalRepository.Get(id);
-                return Ok(book);
+                var journal = await _journalRepository.Get(id);
+                return Ok(journal);
             }
             catch (Exception)
             {
