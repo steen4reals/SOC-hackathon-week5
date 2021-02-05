@@ -33,13 +33,13 @@ namespace BackEnd
         public async Task<Journal> Update(Journal journal)
         {
             using var connection = CreateConnection();
-            return await connection.QuerySingleAsync<Journal>("UPDATE journal SET Title = @Title, Author = @Author WHERE Id = @Id RETURNING *", journal);
+            return await connection.QuerySingleAsync<Journal>("UPDATE journal SET JournalEntry =@JournalEntry, WHERE Id = @Id RETURNING *", journal);
         }
 
         public async Task<Journal> Insert(Journal journal)
         {
             using var connection = CreateConnection();
-            return await connection.QuerySingleAsync<Journal>("INSERT INTO journal (Title, Author) VALUES (@Title, @Author) RETURNING *;", journal);
+            return await connection.QuerySingleAsync<Journal>("INSERT INTO journal (JournalEntry) VALUES (@JournalEntry, (SELECT NOW())) RETURNING *;", journal);
         }
     }
 }
