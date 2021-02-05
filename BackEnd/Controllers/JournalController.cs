@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BackEnd
 {
     [ApiController]
-
+    [Route("[controller]")]
     public class JournalController : ControllerBase
     {
         private readonly IRepository<Journal> _journalRepository;
