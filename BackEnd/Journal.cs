@@ -6,9 +6,9 @@ namespace BackEnd
     {
 
         public long? Id { get; set; }
-        public DateTime Time { get; set; }
+        public DateTime DateOfEntry { get; set; }
 
-        public string Entry { get; set; }
+        public string JournalEntry { get; set; }
 
     }
 }
