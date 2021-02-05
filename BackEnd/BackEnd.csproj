@@ -5,9 +5,11 @@
     <UserSecretsId>9d547dfe-5f4d-4680-9919-5c4b43a62f45</UserSecretsId>
   </PropertyGroup>
 
+
   <ItemGroup>
     <PackageReference Include="Npgsql" Version="5.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+    <PackageReference Include="Dapper" Version="2.0.78" />
   </ItemGroup>
 
 </Project>
