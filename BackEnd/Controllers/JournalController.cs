@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 namespace BackEnd
 {
     [ApiController]
-    [Route("[Controller]")]
 
     public class JournalController : ControllerBase
     {
@@ -74,7 +73,6 @@ namespace BackEnd
         }
 
         [HttpPost]
-        [EnableCors("PostPolicy")]
         public async Task<IActionResult> Insert([FromBody] Journal journal)
         {
             try
