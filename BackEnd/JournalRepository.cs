@@ -14,8 +14,7 @@ namespace BackEnd
         public async Task<IEnumerable<Journal>> GetAll()
         {
             using var connection = CreateConnection();
-            Console.WriteLine("This far");
-            IEnumerable<Journal> journal = await connection.QueryAsync<Journal>("SELECT * FROM journal;");
+            IEnumerable<Journal> journal = await connection.QueryAsync<Journal>("SELECT * FROM Journal;");
             return journal;
         }
 
@@ -23,25 +22,25 @@ namespace BackEnd
         public async void Delete(long id)
         {
             using var connection = CreateConnection();
-            await connection.ExecuteAsync("DELETE FROM journal WHERE Id = @Id;", new { Id = id });
+            await connection.ExecuteAsync("DELETE FROM Journal WHERE Id = @Id;", new { Id = id });
         }
 
         public async Task<Journal> Get(long id)
         {
             using var connection = CreateConnection();
-            return await connection.QuerySingleAsync<Journal>("SELECT * FROM journal WHERE Id = @Id;", new { Id = id });
+            return await connection.QuerySingleAsync<Journal>("SELECT * FROM Journal WHERE Id = @Id;", new { Id = id });
         }
 
         public async Task<Journal> Update(Journal journal)
         {
             using var connection = CreateConnection();
-            return await connection.QuerySingleAsync<Journal>("UPDATE journal SET JournalEntry =@JournalEntry, WHERE Id = @Id RETURNING *", journal);
+            return await connection.QuerySingleAsync<Journal>("UPDATE Journal SET JournalEntry =@JournalEntry, WHERE Id = @Id RETURNING *", journal);
         }
 
         public async Task<Journal> Insert(Journal journal)
         {
             using var connection = CreateConnection();
-            return await connection.QuerySingleAsync<Journal>("INSERT INTO journal (JournalEntry) VALUES (@JournalEntry, (SELECT NOW())) RETURNING *;", journal);
+            return await connection.QuerySingleAsync<Journal>("INSERT INTO Journal (JournalEntry) VALUES (@JournalEntry, (SELECT NOW())) RETURNING *;", journal);
         }
     }
 }
