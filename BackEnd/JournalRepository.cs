@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using Dapper;
 using System.Threading.Tasks;
+using System;
 
 namespace BackEnd
 {
@@ -13,6 +14,7 @@ namespace BackEnd
         public async Task<IEnumerable<Journal>> GetAll()
         {
             using var connection = CreateConnection();
+            Console.WriteLine("This far");
             IEnumerable<Journal> journal = await connection.QueryAsync<Journal>("SELECT * FROM journal;");
             return journal;
         }

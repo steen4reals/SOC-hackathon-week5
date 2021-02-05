@@ -60,7 +60,7 @@ namespace BackEnd
         {
             try
             {
-                var journal1 = await _journalRepository.Update(new Journal { Id = id, Entry = journal.Entry});
+                var journal1 = await _journalRepository.Update(new Journal { Id = id, Entry = journal.Entry });
                 return Ok(journal1);
             }
             catch (Exception)
