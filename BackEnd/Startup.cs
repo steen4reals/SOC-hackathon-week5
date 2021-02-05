@@ -28,14 +28,16 @@ namespace BackEnd
         {
             services.AddTransient<IRepository<Journal>, JournalRepository>();
             services.AddControllers();
-            services.AddCors(options =>
-        {
-            options.AddDefaultPolicy(
-                builder =>
-                {
-                    builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
-                });
-        });
+
+            // Add Cors
+            services.AddCors(o => o.AddPolicy("GetPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
+
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BackEnd", Version = "v1" });

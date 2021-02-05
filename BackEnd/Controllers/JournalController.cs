@@ -8,7 +8,7 @@ namespace BackEnd
 {
     [ApiController]
     [Route("[Controller]")]
-    
+
     public class JournalController : ControllerBase
     {
         private readonly IRepository<Journal> _journalRepository;
@@ -18,7 +18,7 @@ namespace BackEnd
             _journalRepository = journalRepository;
         }
 
-        
+
         [HttpGet]
         public async Task<IEnumerable<Journal>> GetAll()
         {
@@ -74,6 +74,7 @@ namespace BackEnd
         }
 
         [HttpPost]
+        [EnableCors("PostPolicy")]
         public async Task<IActionResult> Insert([FromBody] Journal journal)
         {
             try
