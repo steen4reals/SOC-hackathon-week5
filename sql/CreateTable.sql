@@ -2,7 +2,8 @@
 CREATE TABLE Journal (
     Id SERIAL PRIMARY KEY,
     JournalEntry TEXT,
-    DateOfEntry TIMESTAMP NOT NULL DEFAULT NOW()
+    DateOfEntry TIMESTAMP NOT NULL DEFAULT NOW(),
+    
 );
 
 -- ,
